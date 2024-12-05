@@ -1,48 +1,68 @@
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import Divider from '@mui/material/Divider';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
-import Productes from './HomeProductes';
+import Box from "@mui/material/Box";
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  Container,
+  Typography,
+} from "@mui/material";
+import HomeProductes from "./HomeProductes";
+import "../../App.css";
+import { useState } from "react";
+import {
+  ElectricRickshaw,
+  FilterList,
+  Home,
+  Man,
+  ProductionQuantityLimits,
+  Woman,
+} from "@mui/icons-material";
+// import { useGetProductsByNameQuery } from '../../Redux/Product-Slice';
 
 export default function MainContent() {
-  return (
-    <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      
-        <FormControl>
-        <FormLabel id="demo-radio-buttons-group-label" sx={{fontSize:"1.5em"}}>
-          Filter Catigories
-        </FormLabel>
-        <Divider />
-        <RadioGroup
-          aria-labelledby="demo-radio-buttons-group-label"
-          defaultValue="female"
-          name="radio-buttons-group"
-        >
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
-          <FormControlLabel
-            value="children"
-            control={<Radio />}
-            label="children"
-          />
-          <FormControlLabel value="Home" control={<Radio />} label="Home" />
-          <FormControlLabel
-            value="electrones"
-            control={<Radio />}
-            label="electrones"
-          />
-        </RadioGroup>
-      </FormControl>  
+  const All = "product?populate=*";
+  const female = "product?populate=*&filters[Catigory][$eq]=women";
+  const male = "product?populate=*&filters[Catigory][$eq]=men";
 
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+  const [catigory, setCatigory] = useState(All); // Default category
+  
+  const handleChange = (event, newValue) => {
+    setCatigory(newValue);
+  };
+
+  return (
+    <Container>
+      <Typography variant="h6">
+        <FilterList /> Selected Products
+      </Typography>
+      <Typography variant="body1">
+        All our new arrivals in a exclusive brand selection
+      </Typography>
+      <BottomNavigation
+        sx={{ width: "100%" }}
+        value={catigory}
+        onChange={(e) => handleChange(e.target.value)}
       >
-        <Toolbar />
-       <Productes/>
+        <BottomNavigationAction
+          label="All Products"
+          value={All}
+          icon={<ProductionQuantityLimits />}
+        />
+        <BottomNavigationAction label="Women" value={female} icon={<Woman />} />
+        <BottomNavigationAction label="Men" value={male} icon={<Man />} />
+        <BottomNavigationAction
+          label="Electronics"
+          value="electrones"
+          icon={<ElectricRickshaw />}
+        />
+        <BottomNavigationAction
+          label="Home products"
+          value="home"
+          icon={<Home />}
+        />
+      </BottomNavigation>
+      <Box component="main" sx={{ bgcolor: "background.default", p: 3 }}>
+        <HomeProductes />
       </Box>
-    </Box>
+    </Container>
   );
 }

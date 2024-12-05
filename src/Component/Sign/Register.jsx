@@ -6,6 +6,7 @@ import {
   PersonOutlined,
 } from "@mui/icons-material";
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
@@ -18,14 +19,16 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { useDispatch } from 'react-redux';
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import "../../App.css";
-import axios from "axios";
-
+import { CreateUser } from "./Check";
+import CheckIcon from '@mui/icons-material/Check';
 export default function Register() {
   const loading = false;
+  const dispatch = useDispatch();
   const [formData, setformData] = useState({
     Name: "",
     email: "",
@@ -34,16 +37,28 @@ export default function Register() {
     Admin: "",
   });
   const theme = useTheme();
-  const handleSend = () => {
-    const newobject=JSON.stringify(formData);
-    axios.post("http://localhost:1337/api/user-infos", newobject);
-    setformData({
-      Name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      Admin: "",
-    });
+  const handleSend = async () => {
+  //  if (formData.password.trim() !== formData.confirmPassword.trim()) {
+  //     alert("Passwords do not match");
+  //     return;
+  //   } else {
+      const action = dispatch(CreateUser(formData));
+      if (CreateUser .fulfilled.match(action)) {
+        return(<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+         User  created successfully!
+        </Alert>)
+        // Reset form or perform other actions
+      } else {
+        alert('Error creating user:', action.payload);
+      }
+      setformData({
+        Name: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        Admin: "",
+      });
+    // }
   };
   const InputsArr = [
     {

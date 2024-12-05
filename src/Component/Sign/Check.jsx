@@ -1,51 +1,89 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const GetUserData = () => {
-  var GetData = new XMLHttpRequest();
-  GetData.open("GET", "http://localhost:1337/api/user-infos", true);
-  GetData.send();
-  if (GetData.readyState === 4 && GetData.status === 200) {
-    console.log(GetData.response);
-  }
-};
-export const SendUserData = (UserData) => {
-  var SendData = new XMLHttpRequest();
-  SendData.open("POST", "http://localhost:1337/api/user-infos", true);
-  SendData.setRequestHeader("userInfo", UserData);
-  //   SendData.send();
-  if (SendData.readyState === 4 && SendData.status === 200) {
-    console.log(SendData.response);
-  }
-};
-export const DeleteUserData = () => {
-  var DeleteData = new XMLHttpRequest();
-  DeleteData.open("DELETE", "http://localhost:1337/api/user-infos", true);
-  DeleteData.send();
-  if (DeleteData.readyState === 4 && DeleteData.status === 200) {
-    console.log(DeleteData.response);
-  }
-};
-export const SetNewProduct = async(NewProduct) => {  
+export const GetUserData = async () => {
   try {
-  await axios
-    .post("http://localhost:1337/api/product", NewProduct)
-    .then((res) => {
-      console.log(res.data);
-    });
+    const user = await axios
+      .get("http://localhost:1337/api/user-infos")
+      .then((res) => res.data);
+    if (user) {
+      return user;
+    }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
-export const DeleteProduct = () => {
-  var DeleteProduct = new XMLHttpRequest();
-  DeleteProduct.open("DELETE", "http://localhost:1337/api/product", true);
-  DeleteProduct.send();
-  if (DeleteProduct.readyState === 4 && DeleteProduct.status === 200) {
-    console.log(DeleteProduct.response);
+export const CreateUser = createAsyncThunk(
+  "users/createUser",
+  async (UserData, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:1337/api/user-infos", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: UserData.username,
+          email: UserData.email,
+          password: UserData.password,
+          confirmPas: UserData.confirmPas,
+          Admin: UserData.Admin,
+        }),
+      });
+      if (!response.ok) {
+        // If the response is not ok, throw an error
+        const errorData = await response.json();
+        return rejectWithValue(errorData);
+      }
+      return await response.json(); // Return the response data
+    } catch (error) {
+      // Handle network errors or other errors
+      return rejectWithValue(error.message);
+    }
+  }
+);
+export const DeleteUserData = async () => {
+  await axios.delete("http://localhost:1337/api/user-infos");
+};
+export const SetNewProduct = async (formData) => {
+  //::products.products/7
+  try {
+    const res = await axios.post(
+      "http://localhost:1337/api/product?populate=*",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    if (res.status === 200) {
+      console.log("send data is ok");
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const DeleteProduct = async (id) => {
+  try {
+    const res = await axios.delete(`http://localhost:1337/api/product/${id}`);
+    if (res.status === 200) {
+      console.log("product was deleted successfully");
+    }
+  } catch (error) {
+    console.error(error);
+    throw error;
   }
 };
 export const GetProductData = async () => {
-  const res = await axios
-    .get("http://localhost:1337/api/product?populate=*");
-    return (res.data.data);
-}
+  try {
+    const res = await axios.get("http://localhost:1337/api/product?populate=*");
+    if (res.status === 200) {
+      return res.data;
+    }
+  } catch (error) {
+    console.error("Error fetching data from API:", error);
+    throw error;
+  }
+};

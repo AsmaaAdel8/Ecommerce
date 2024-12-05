@@ -13,23 +13,34 @@ import {
 import "../../App.css";
 import { Star } from "@mui/icons-material";
 import { useState } from "react";
-import { SetNewProduct } from "../Sign/Check";
-
+// import { SetNewProduct } from "../Sign/Check";
+import { useDispatch, useSelector } from "react-redux";
+import { GetProduct } from "../../Redux/SendProduct-slice";
 export default function CreateProduct() {
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.addProduct);
   const [productData, setProductData] = useState({
-    ProductName: "",
-    ProductDescription: "",
+    Productitle: "",
+    Description: "",
     ProductPrice: "",
-    ProductCategory: "",
-    Rate: "",
-    Images: "",
+    Catigory: "",
+    Rating: "",
+    ProductImage: "",
   });
   const handleSubmit = () => {
-    const NewProduct=JSON.stringify(productData)
-    console.log(NewProduct);
-    
-    SetNewProduct(NewProduct)
+    if (
+      !productData.Productitle ||
+      !productData.Description ||
+      !productData.ProductPrice ||
+      !productData.Catigory ||
+      !productData.Rating ||
+      !productData.ProductImage
+    ) {
+      alert("Please fill in all the fields");
+      return;
+    }
+    dispatch(GetProduct(productData));
   };
   const options = ["WEMEN", "MEN", "CHILDREN", "ELECTRONES", "HOME"];
   const handleImageChange = (e) => {
@@ -37,7 +48,7 @@ export default function CreateProduct() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setProductData({ ...productData, Images: reader.result });
+        setProductData({ ...productData, ProductImage: reader.result });
       };
       reader.readAsDataURL(file);
     }
@@ -60,21 +71,21 @@ export default function CreateProduct() {
           <Input
             type="text"
             id="name"
-            value={productData.ProductName}
+            value={productData.Productitle}
             fullWidth
             onChange={(e) =>
-              setProductData({ ...productData, ProductName: e.target.value })
+              setProductData({ ...productData, Productitle: e.target.value })
             }
           />
           <InputLabel htmlFor="descr">Description</InputLabel>
           <Input
             type="text"
             id="descr"
-            value={productData.ProductDescription}
+            value={productData.Description}
             onChange={(e) =>
               setProductData({
                 ...productData,
-                ProductDescription: e.target.value,
+                Description: e.target.value,
               })
             }
             fullWidth
@@ -97,9 +108,9 @@ export default function CreateProduct() {
             type="number"
             fullWidth
             id="input-with-icon-adornment"
-            value={productData.Rate}
+            value={productData.Rating}
             onChange={(e) =>
-              setProductData({ ...productData, Rate: e.target.value })
+              setProductData({ ...productData, Rating: e.target.value })
             }
             startAdornment={
               <InputAdornment position="start">
@@ -107,7 +118,7 @@ export default function CreateProduct() {
               </InputAdornment>
             }
             inputProps={{
-              min: 0, 
+              min: 0,
               max: 5, // (assuming a 5-star rating)
             }}
           />
@@ -116,11 +127,11 @@ export default function CreateProduct() {
             fullWidth
             options={options}
             sx={{ width: 300, mt: 2, mb: 2 }}
-            value={productData.ProductCategory}
-            onChange={(event,newValue) => {
+            value={productData.Catigory}
+            onChange={(event, newValue) => {
               setProductData({
                 ...productData,
-                ProductCatigory: newValue,
+                Catigory: newValue,
               });
             }}
             renderInput={(params) => <TextField {...params} label="Category" />}
@@ -128,7 +139,8 @@ export default function CreateProduct() {
           <input
             type="file"
             placeholder="Chose Images"
-            name="imageFile" accept="image/*"
+            name="imageFile"
+            accept="image/*"
             onChange={handleImageChange}
             style={{
               margin: "auto",
@@ -140,6 +152,7 @@ export default function CreateProduct() {
           <Button
             type="submit"
             onClick={handleSubmit}
+            disabled={status === "loading"}
             style={{
               padding: "5px",
               backgroundColor: theme.palette.success.main,
@@ -149,7 +162,7 @@ export default function CreateProduct() {
               marginLeft: "20%",
             }}
           >
-            Upload Data
+            {status === "loading" ? "Adding..." : "Add Product"}
           </Button>
         </div>
       </Paper>

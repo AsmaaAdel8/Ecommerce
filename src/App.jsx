@@ -4,9 +4,8 @@ import Register from "./Component/Sign/Register";
 import Login from "./Component/Sign/Login";
 import Dashpoard from "./Component/Sign/Dashpoard";
 import Hero from "./Component/homePage/Hero";
-
+import './index.css'
 export default function App() {
-  // http://localhost:1337/api/product?populate=*  api url
   return (
     <Routes>
       <Route path="/" element={<MasterLayout />}>

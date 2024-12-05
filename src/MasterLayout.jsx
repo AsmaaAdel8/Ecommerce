@@ -16,7 +16,6 @@ export default function MasterLayout() {
           <Header1 />
           <Header2 />
           <Header3/>
-          {/* <Hero /> */}
         </Container>
         <Outlet />
       </ThemeProvider>

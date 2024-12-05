@@ -15,17 +15,39 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "../../App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { GetUsers } from "../../Redux/getUsers-slice";
 
+// import { useSelector } from "react-redux";
 export default function Login() {
   const [email, setemail] = useState("");
-  const [password, setPassword] = useState(null);
+  const [password, setPassword] = useState("");
   const theme = useTheme();
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.users);
+  useEffect(() => {
+    dispatch(GetUsers());
+    console.log(data);
+  }, []);
+  const [data] = items;
   const handleSend = () => {
-
+    if (!email || !password) {
+      alert("Email and Password are required.");
+      return;
+    } else {
+      data.map((user) => {
+        if (user.email === email && user.password === password) {
+          alert("Login Successfull");
+          window.location.href = "/";
+          // and will remove login and regster buttons and but user name
+        }
+      });
+    }
+    // Clear the inputs
     setPassword("");
     setemail("");
   };
@@ -34,13 +56,16 @@ export default function Login() {
       title: "Email Adress",
       Ico: <EmailOutlined />,
       value: email,
+      type: "email",
     },
     {
       title: "Password",
       Ico: <LockOutlined />,
       value: password,
+      type: "password",
     },
   ];
+
   return (
     <Box
       sx={{
@@ -53,7 +78,8 @@ export default function Login() {
       <Typography variant="h4" mb={1} textAlign={"center"} color={"GrayText"}>
         Login To Your Account
       </Typography>
-      <Paper className="form"
+      <Paper
+        className="form"
         sx={{
           bgcolor: theme.palette.favColor.main,
           boxShadow: "0px 0px 20px rgba(0, 0, 2)",
@@ -71,14 +97,14 @@ export default function Login() {
               }}
               fullWidth
             >
-              <InputLabel htmlFor="input-with-icon-adornment">
+              <InputLabel htmlFor="input-with-icon-adornment" id={item.title}>
                 {item.title}
               </InputLabel>
               <Input
                 id="input-with-icon-adornment"
                 value={item.value}
                 required
-                type={item.value}
+                type={item.type}
                 onChange={(e) => {
                   item.title === "Password"
                     ? setPassword(e.target.value)
