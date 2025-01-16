@@ -16,6 +16,7 @@ import "swiper/css/navigation";
 import MainContent from "./MainContent";
 import InfoGrop from "./InfoGrop";
 import Footer from "../footer/Footer";
+import Header3 from "../Headers/Header3";
 
 const mySlider = [
   { text: "MEN", link: "src/images/banner-15.jpg" },
@@ -26,6 +27,7 @@ export default function Hero() {
   const theme = useTheme();
   return (
     <Box>
+      <Header3 />
       <Container
         sx={{ pt: 2, mt: 2.5, display: "flex", alignItems: "center", gap: 2 }}
       >

@@ -6,7 +6,6 @@ import {
   PersonOutlined,
 } from "@mui/icons-material";
 import {
-  Alert,
   Box,
   Button,
   Checkbox,
@@ -19,13 +18,13 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import "../../App.css";
-import { CreateUser } from "./Check";
-import CheckIcon from '@mui/icons-material/Check';
+import { useNavigate } from 'react-router-dom';
+import { PostUser, sendUsers } from "../../Redux/getUsers-slice";
 export default function Register() {
   const loading = false;
   const dispatch = useDispatch();
@@ -34,31 +33,29 @@ export default function Register() {
     email: "",
     password: "",
     confirmPassword: "",
-    Admin: "",
+    Admin: false,
   });
   const theme = useTheme();
-  const handleSend = async () => {
-  //  if (formData.password.trim() !== formData.confirmPassword.trim()) {
-  //     alert("Passwords do not match");
-  //     return;
-  //   } else {
-      const action = dispatch(CreateUser(formData));
-      if (CreateUser .fulfilled.match(action)) {
-        return(<Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-         User  created successfully!
-        </Alert>)
-        // Reset form or perform other actions
-      } else {
-        alert('Error creating user:', action.payload);
-      }
+  const navigate = useNavigate();
+  const handleSend = async() => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    } else {
+      // localStorage.setItem("user", JSON.stringify(formData));
+      alert("Registration Successfull");
+      // console.log(formData);
+      await dispatch(PostUser(formData));
+      await dispatch(sendUsers(formData));
       setformData({
         Name: "",
         email: "",
         password: "",
         confirmPassword: "",
-        Admin: "",
+        Admin: false,
       });
-    // }
+      navigate("/login")
+    }
   };
   const InputsArr = [
     {
@@ -87,7 +84,16 @@ export default function Register() {
     },
   ];
   const handleChange = (key, value) => {
-    setformData({ [key]: value });
+    setformData((prevData) => ({
+      ...prevData, // Keep existing data
+      [key]: value, // Update the specific field
+    }));
+  };
+  const handleCheckboxChange = (e) => {
+    setformData((prevData) => ({
+      ...prevData,
+      Admin: e.target.checked, // Set Admin to true or false based on checkbox state
+    }));
   };
   return (
     <Box
@@ -138,7 +144,11 @@ export default function Register() {
             </FormControl>
           );
         })}
-        <FormControlLabel control={<Checkbox />} label="Admin" />
+        <FormControlLabel
+          control={<Checkbox />}
+          label="Admin"
+          onChange={(e) => handleCheckboxChange(e)}
+        />
         <Button
           type="submit"
           variant="contained"

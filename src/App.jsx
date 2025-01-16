@@ -5,12 +5,13 @@ import Login from "./Component/Sign/Login";
 import Dashpoard from "./Component/Sign/Dashpoard";
 import Hero from "./Component/homePage/Hero";
 import './index.css'
+import Profile from "./Component/Profile";
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<MasterLayout />}>
         <Route index element={<Hero/>}/>
-
+        <Route path="/Profile" element={<Profile />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Dashpoard" element={<Dashpoard />} />

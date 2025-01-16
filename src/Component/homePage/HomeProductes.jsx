@@ -40,7 +40,7 @@ export default function HomeProductes() {
   const UrlImg = "http://localhost:1337";
   const {items , status , error} = useSelector((state) => state.addProduct);
   const [data]=items;
-  console.log(data);
+  // console.log(data);
   useEffect(() => {
     dispatch(addProduct());
   },[]);

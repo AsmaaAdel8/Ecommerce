@@ -16,7 +16,12 @@ const productSlice = createSlice({
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    sendProduct: (state, action) => {
+      state.items.push(action.payload);
+      // console.log('send succed')
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(addProduct.pending, (state) => {
@@ -32,5 +37,5 @@ const productSlice = createSlice({
       });
   },
 });
-
+export const { sendProduct } = productSlice.actions;
 export default productSlice.reducer;

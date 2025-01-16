@@ -4,7 +4,7 @@ import { ColorModeContext, useMode } from "./Theme";
 import { Outlet } from "react-router-dom";
 import Header1 from "./Component/Headers/Header1";
 import Header2 from "./Component/Headers/Header2";
-import Header3 from "./Component/Headers/Header3";
+// import Header3 from "./Component/Headers/Header3";
 
 export default function MasterLayout() {
   const [theme, colorMode] = useMode();
@@ -15,7 +15,7 @@ export default function MasterLayout() {
         <Container>
           <Header1 />
           <Header2 />
-          <Header3/>
+          {/* <Header3/> */}
         </Container>
         <Outlet />
       </ThemeProvider>

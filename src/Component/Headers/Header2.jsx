@@ -28,6 +28,8 @@ import { styled } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Reset } from "../../Redux/User-slice";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -75,8 +77,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-const User = false; // if user have an account or not
-const Admin = true; // if you user r admin
 export default function Header2() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -84,6 +84,13 @@ export default function Header2() {
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
+  const {items} = useSelector((state) => state.users);
+  const data= useSelector((state) => state.ifUser);
+  // disapear login bage and dashbord depind on data of users
+  console.log(data);
+  const dispatch=useDispatch();
+  // const User = false; // if user have an account or not
+  // const Admin = true; // if you user r admin
 
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -197,7 +204,8 @@ export default function Header2() {
               <ShoppingCartIcon />
             </StyledBadge>
           </IconButton>
-          {Admin && (
+          {items.map((item)=>{
+          return  item.Admin &&(
             <Link
               to="Dashpoard"
               style={{
@@ -209,14 +217,14 @@ export default function Header2() {
                 display: "flex",
                 alignItems: "center",
                 width: "7em",
-                justifyContent:"center"
+                justifyContent: "center",
               }}
             >
               <Lock fontSize="5px" />
               <Typography variant="span">Dashpoard</Typography>
             </Link>
-          )}
-          {User ? (
+          )})}
+          {data ? (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Link
                 to="Profile"
@@ -229,7 +237,7 @@ export default function Header2() {
                   display: "flex",
                   alignItems: "center",
                   width: "5em",
-                justifyContent:"center"
+                  justifyContent: "center",
                 }}
               >
                 <PersonPin fontSize="5px" />
@@ -237,6 +245,7 @@ export default function Header2() {
               </Link>
               <Link
                 to="Logout"
+                onClick={()=>dispatch(Reset())}
                 style={{
                   textDecoration: "none",
                   color: theme.palette.text.main,
@@ -246,7 +255,7 @@ export default function Header2() {
                   display: "flex",
                   alignItems: "center",
                   width: "5em",
-                justifyContent:"center"
+                  justifyContent: "center",
                 }}
               >
                 <Logout fontSize="5px" />
@@ -266,7 +275,7 @@ export default function Header2() {
                   display: "flex",
                   alignItems: "center",
                   width: "5em",
-                justifyContent:"center"
+                  justifyContent: "center",
                 }}
               >
                 <Login fontSize="5px" />
@@ -283,7 +292,7 @@ export default function Header2() {
                   display: "flex",
                   alignItems: "center",
                   width: "5em",
-                justifyContent:"center"
+                  justifyContent: "center",
                 }}
               >
                 <PersonAddAlt fontSize="5px" />

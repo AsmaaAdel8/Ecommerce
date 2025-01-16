@@ -16,34 +16,40 @@ import {
   useTheme,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "../../App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GetUsers } from "../../Redux/getUsers-slice";
+import { Check } from "../../Redux/User-slice";
 
-// import { useSelector } from "react-redux";
 export default function Login() {
-  const [email, setemail] = useState("");
-  const [password, setPassword] = useState("");
+  // data from user
+  const [Lemail, setemail] = useState("");
+  const [Lpassword, setPassword] = useState("");
   const theme = useTheme();
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.users);
+  const navigate=useNavigate();
   useEffect(() => {
     dispatch(GetUsers());
-    console.log(data);
   }, []);
-  const [data] = items;
+  console.log(items);
   const handleSend = () => {
-    if (!email || !password) {
+    if (!Lemail || !Lpassword) {
       alert("Email and Password are required.");
       return;
     } else {
-      data.map((user) => {
-        if (user.email === email && user.password === password) {
+      items.map((user) => {
+        if (
+          (user.email === Lemail && user.password === Lpassword)
+        ) {
           alert("Login Successfull");
-          window.location.href = "/";
+          navigate('/')
           // and will remove login and regster buttons and but user name
+          dispatch(Check())
+        }else{
+          alert('your email or password are not correct...')
         }
       });
     }
@@ -55,13 +61,13 @@ export default function Login() {
     {
       title: "Email Adress",
       Ico: <EmailOutlined />,
-      value: email,
+      value: Lemail,
       type: "email",
     },
     {
       title: "Password",
       Ico: <LockOutlined />,
-      value: password,
+      value: Lpassword,
       type: "password",
     },
   ];
