@@ -15,43 +15,32 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import "../../App.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { GetUsers } from "../../Redux/getUsers-slice";
-import { Check } from "../../Redux/User-slice";
+// import { Check } from "../../Redux/User-slice";
 
 export default function Login() {
   // data from user
   const [Lemail, setemail] = useState("");
-  const [Lpassword, setPassword] = useState("");
+  const [Lpassword, setPassword] = useState(""); 
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.users);
+  // const { items } = useSelector((state) => state.users);
   const navigate=useNavigate();
-  useEffect(() => {
-    dispatch(GetUsers());
-  }, []);
-  console.log(items);
-  const handleSend = () => {
+ 
+  // console.log(items);
+  const handleSend = async(event) => {
+    event.preventDefault();
+
     if (!Lemail || !Lpassword) {
       alert("Email and Password are required.");
       return;
     } else {
-      items.map((user) => {
-        if (
-          (user.email === Lemail && user.password === Lpassword)
-        ) {
-          alert("Login Successfull");
-          navigate('/')
-          // and will remove login and regster buttons and but user name
-          dispatch(Check())
-        }else{
-          alert('your email or password are not correct...')
-        }
-      });
+      await dispatch(GetUsers({ Lemail , navigate }));
     }
     // Clear the inputs
     setPassword("");

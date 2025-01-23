@@ -9,6 +9,7 @@ import HomeProductes from "./HomeProductes";
 import "../../App.css";
 import { useState } from "react";
 import {
+  ChildCare,
   ElectricRickshaw,
   FilterList,
   Home,
@@ -16,18 +17,13 @@ import {
   ProductionQuantityLimits,
   Woman,
 } from "@mui/icons-material";
-// import { useGetProductsByNameQuery } from '../../Redux/Product-Slice';
+import { useDispatch } from "react-redux";
+import { addProduct, Filer } from "../../Redux/Product-Slice";
 
 export default function MainContent() {
-  const All = "product?populate=*";
-  const female = "product?populate=*&filters[Catigory][$eq]=women";
-  const male = "product?populate=*&filters[Catigory][$eq]=men";
+  const dispatch = useDispatch();
+  const [catigory, setCatigory] = useState(""); // Default category
 
-  const [catigory, setCatigory] = useState(All); // Default category
-  
-  const handleChange = (event, newValue) => {
-    setCatigory(newValue);
-  };
 
   return (
     <Container>
@@ -40,25 +36,31 @@ export default function MainContent() {
       <BottomNavigation
         sx={{ width: "100%" }}
         value={catigory}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(event, newValue) => {
+          setCatigory(newValue);
+          console.log(newValue);
+          dispatch(Filer(newValue));
+        }}
       >
         <BottomNavigationAction
           label="All Products"
-          value={All}
+          // value="All products"
+          onClick={()=>{dispatch(addProduct())}}
           icon={<ProductionQuantityLimits />}
         />
-        <BottomNavigationAction label="Women" value={female} icon={<Woman />} />
-        <BottomNavigationAction label="Men" value={male} icon={<Man />} />
+        <BottomNavigationAction label="women" value="women" icon={<Woman />} />
+        <BottomNavigationAction label="men" value="men" icon={<Man />} />
         <BottomNavigationAction
-          label="Electronics"
+          label="children"
+          value="children"
+          icon={<ChildCare />}
+        />
+        <BottomNavigationAction
+          label="electrones"
           value="electrones"
           icon={<ElectricRickshaw />}
         />
-        <BottomNavigationAction
-          label="Home products"
-          value="home"
-          icon={<Home />}
-        />
+        <BottomNavigationAction label="home" value="home" icon={<Home />} />
       </BottomNavigation>
       <Box component="main" sx={{ bgcolor: "background.default", p: 3 }}>
         <HomeProductes />

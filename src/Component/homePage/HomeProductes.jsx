@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import Draggable from "react-draggable";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../Redux/Product-Slice";
+import { Selected } from "../../Redux/Selected-Products";
+import { useNavigate } from "react-router-dom";
 
 function PaperComponent(props) {
   return (
@@ -37,13 +39,14 @@ export default function HomeProductes() {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const dispatch = useDispatch();
-  const UrlImg = "http://localhost:1337";
-  const {items , status , error} = useSelector((state) => state.addProduct);
-  const [data]=items;
+  const navigate=useNavigate();
+  const { items, status, error } = useSelector((state) => state.addProduct);
+  const { users } = useSelector((state) => state.users);
+  const [data] = items;
   // console.log(data);
   useEffect(() => {
     dispatch(addProduct());
-  },[]);
+  }, [dispatch]);
 
   // the varible which returns the data from the api
   const handleClickOpen = (product) => {
@@ -62,23 +65,27 @@ export default function HomeProductes() {
       columnSpacing={{ xs: 1, sm: 2, md: 2 }}
       m={"auto"}
     >
-      {status==="loading" && (
-      <Box width={"100%"}>
-        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
-        <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-        <Skeleton animation="wave" height={10} width="80%" />
-      </Box>
-       )} 
+      {status === "loading" && (
+        <Box width={"100%"}>
+          <Skeleton
+            sx={{ height: 190 }}
+            animation="wave"
+            variant="rectangular"
+          />
+          <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+          <Skeleton animation="wave" height={10} width="80%" />
+        </Box>
+      )}
       {data &&
         data.map((product, index) => {
           return (
             <Grid item md={4} key={index} sm={6} xl={3}>
-              <Card >
+              <Card>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    sx={{ maxHeight: "40%" }}
-                    image={`${UrlImg}${product.attributes.ProductImage.data[0].attributes.url}`}
+                    sx={{ height: "250px" }}
+                    image={product.attributes.image1}
                     alt="product image"
                     draggable="false"
                     loading="lazy"
@@ -132,7 +139,7 @@ export default function HomeProductes() {
                   width={"100%"}
                   height={"100%"}
                   style={{ float: "left" }}
-                  src={`${UrlImg}${selectedProduct.attributes.ProductImage.data[0].attributes.url}`}
+                  src={selectedProduct.attributes.image1}
                   alt="product image"
                   draggable="false"
                   loading="lazy"
@@ -154,16 +161,16 @@ export default function HomeProductes() {
                   <img
                     width={"90px"}
                     height={"50%"}
-                    src={`${UrlImg}${selectedProduct.attributes.ProductImage.data[1].attributes.url}`}
+                    src={selectedProduct.attributes.image2}
                     alt="product image"
                     draggable="false"
                     loading="lazy"
                   />
-                  {selectedProduct.attributes.ProductImage.data[2] && (
+                  {selectedProduct.attributes.image3 && (
                     <img
                       width={"90px"}
                       height={"50%"}
-                      src={`${UrlImg}${selectedProduct.attributes.ProductImage.data[2].attributes.url}`}
+                      src={selectedProduct.attributes.image3}
                       alt="product image"
                     />
                   )}
@@ -183,7 +190,15 @@ export default function HomeProductes() {
                 </DialogContent>
                 <DialogActions>
                   <Button
-                    onClick={handleClose}
+                    onClick={() => {
+                      handleClose();
+                      if (!users) {
+                        alert("You shoud login To your account first...");
+                        navigate("/login")
+                      } else {
+                        dispatch(Selected(selectedProduct));
+                      }
+                    }}
                     startIcon={<AddShoppingCartIcon />}
                   >
                     Buy Now

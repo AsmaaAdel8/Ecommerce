@@ -1,25 +1,25 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// send new product to rest api 
 export const GetProduct = createAsyncThunk(
   "products/GetProduct",
-  async (data) => {
+  async (attributes) => {
     try {
-      // const response = await fetch('http://localhost:1337/api/product?populate=*', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(data),
-      // });
-      // return await response.json();
-      const response = await axios.post("http://localhost:1337/api/product", {
-        data,
-        headers: { "Content-Type": "application/json" },
-      });
-      return response.data;
+      const response = await axios
+        .post("http://localhost:3000/products", {
+          attributes,
+        })
+        .then((response) => {
+          console.log("Success:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      return response;
     } catch (error) {
       console.error(error);
     }
   }
 );
+// http://localhost:3000/users

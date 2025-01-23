@@ -67,7 +67,7 @@ export const SetNewProduct = async (formData) => {
 };
 export const DeleteProduct = async (id) => {
   try {
-    const res = await axios.delete(`http://localhost:1337/api/product/${id}`);
+    const res = await axios.delete(`http://localhost:3000/products/${id}`);
     if (res.status === 200) {
       console.log("product was deleted successfully");
     }
@@ -78,7 +78,7 @@ export const DeleteProduct = async (id) => {
 };
 export const GetProductData = async () => {
   try {
-    const res = await axios.get("http://localhost:1337/api/product?populate=*");
+    const res = await axios.get("http://localhost:3000/products");
     if (res.status === 200) {
       return res.data;
     }

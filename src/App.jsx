@@ -6,6 +6,7 @@ import Dashpoard from "./Component/Sign/Dashpoard";
 import Hero from "./Component/homePage/Hero";
 import './index.css'
 import Profile from "./Component/Profile";
+import Cart from "./Component/Cart";
 export default function App() {
   return (
     <Routes>
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/Dashpoard" element={<Dashpoard />} />
+        <Route path="/Cart" element={<Cart />} />
       </Route>
     </Routes>
   );

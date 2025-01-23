@@ -26,7 +26,7 @@ export default function CreateProduct() {
     ProductPrice: "",
     Catigory: "",
     Rating: "",
-    ProductImage: "",
+    image1: null,
   });
   const handleSubmit = () => {
     if (
@@ -35,7 +35,7 @@ export default function CreateProduct() {
       !productData.ProductPrice ||
       !productData.Catigory ||
       !productData.Rating ||
-      !productData.ProductImage
+      !productData.image1
     ) {
       alert("Please fill in all the fields");
       return;

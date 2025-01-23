@@ -29,7 +29,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Reset } from "../../Redux/User-slice";
+import { LogOut } from "../../Redux/getUsers-slice";
+// import { Shopping } from "../../Redux/Selected-Products";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -84,14 +85,13 @@ export default function Header2() {
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const {items} = useSelector((state) => state.users);
-  const data= useSelector((state) => state.ifUser);
+  const { items } = useSelector((state) => state.users);
   // disapear login bage and dashbord depind on data of users
-  console.log(data);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
+  const number  = useSelector((state) => state.SelectedProd.num);
+  console.log(number)
   // const User = false; // if user have an account or not
   // const Admin = true; // if you user r admin
-
   const handleMenuItemClick = (event, index) => {
     setSelectedIndex(index);
     setAnchorEl(null);
@@ -100,6 +100,11 @@ export default function Header2() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+const logout=()=>{
+  dispatch(LogOut());
+  document.getElementById('shop').style.display="none";
+}
 
   const theme = useTheme();
   return (
@@ -116,7 +121,7 @@ export default function Header2() {
         <Stack sx={{ alignItems: "center" }}>
           <ShoppingCartOutlinedIcon />
           <Link
-            to=""
+            to="/"
             style={{
               textDecoration: "none",
               color: theme.palette.text.primary,
@@ -199,13 +204,14 @@ export default function Header2() {
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
-          <IconButton aria-label="cart">
-            <StyledBadge badgeContent={1} color="secondary">
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton>
-          {items.map((item)=>{
-          return  item.Admin &&(
+          <Link to={"/Cart"} id="shop">
+            <IconButton aria-label="cart" >
+              <StyledBadge badgeContent={number} color="secondary">
+                <ShoppingCartIcon />
+              </StyledBadge>
+            </IconButton>
+          </Link>
+          {items === "showAdminDashboard" && (
             <Link
               to="Dashpoard"
               style={{
@@ -223,8 +229,8 @@ export default function Header2() {
               <Lock fontSize="5px" />
               <Typography variant="span">Dashpoard</Typography>
             </Link>
-          )})}
-          {data ? (
+          )}
+          {items ? (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Link
                 to="Profile"
@@ -244,8 +250,8 @@ export default function Header2() {
                 <Typography variant="span">Profile</Typography>
               </Link>
               <Link
-                to="Logout"
-                onClick={()=>dispatch(Reset())}
+                to="login"
+                onClick={ logout }
                 style={{
                   textDecoration: "none",
                   color: theme.palette.text.main,

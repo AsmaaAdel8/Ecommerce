@@ -1,0 +1,28 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "Name": "Asmaa",
+      "email": "adelfarouk011136@gmail.com",
+      "password":"12345",
+      "confirmPassword": "12345",
+      "Admin": true
+    },
+    {
+      "id": "2",
+      "Name": "Hassan",
+      "email": "hassan36@gmail.com",
+      "password": "7412",
+      "confirmPassword": "7412",
+      "Admin": false
+    },
+    {
+      "id": "5526",
+      "Name": "smsm",
+      "email": "adelfarouk011@gmail.com",
+      "password": "852",
+      "confirmPassword": "852",
+      "Admin": true
+    }
+  ]
+}
