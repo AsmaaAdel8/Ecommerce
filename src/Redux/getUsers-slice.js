@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+// import {dotenv} from 'dotenv';
+// require("dotenv").config();
 
-// const uRl= process.env.REACT_APP_Users_Api;
 export const GetUsers = createAsyncThunk(
   "users/getUsers",
   async ({ Lemail, navigate  }) => {
-    const response = await axios.get("http://localhost:3000/users");
+    // const uRl= process.env.REACT_APP_URL_API;
+    // console.log(process.env);
+    const response = await axios.get(`http://localhost:3000/users`);
     const users = Array.isArray(response.data) ? response.data : [];
     // console.log(Lemail)
     const userData = users.find(
@@ -32,7 +35,8 @@ export const GetUsers = createAsyncThunk(
 );
 
 export const PostUser = createAsyncThunk("users/postUser", async (formData) => {
-  const response = await axios.post("http://localhost:3000/users", formData);
+  // const uRl= process.env.REACT_APP_URL_API;
+  const response = await axios.post(`http://localhost:3000/users`, formData);
   return response;
 });
 

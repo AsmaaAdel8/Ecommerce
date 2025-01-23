@@ -86,6 +86,8 @@ export default function Header2() {
     setAnchorEl(event.currentTarget);
   };
   const { items } = useSelector((state) => state.users);
+  console.log(items);
+  
   // disapear login bage and dashbord depind on data of users
   const dispatch = useDispatch();
   const number  = useSelector((state) => state.SelectedProd.num);
@@ -204,13 +206,15 @@ const logout=()=>{
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
-          <Link to={"/Cart"} id="shop">
+          {! items && (
+          <Link to={"/Cart"}>
             <IconButton aria-label="cart" >
               <StyledBadge badgeContent={number} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
             </IconButton>
           </Link>
+          )}
           {items === "showAdminDashboard" && (
             <Link
               to="Dashpoard"
@@ -230,7 +234,7 @@ const logout=()=>{
               <Typography variant="span">Dashpoard</Typography>
             </Link>
           )}
-          {items ? (
+          { !items ? (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Link
                 to="Profile"

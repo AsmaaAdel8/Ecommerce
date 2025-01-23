@@ -25,6 +25,7 @@ const mySlider = [
 ];
 export default function Hero() {
   const theme = useTheme();
+  // console.log(process.env.REACT_APP_PASSWORD)
   return (
     <Box>
       <Header3 />

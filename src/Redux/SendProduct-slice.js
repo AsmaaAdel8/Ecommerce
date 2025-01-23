@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+// const uRl= process.env.REACT_APP_URL_API;
 // send new product to rest api 
 export const GetProduct = createAsyncThunk(
   "products/GetProduct",
   async (attributes) => {
     try {
       const response = await axios
-        .post("http://localhost:3000/products", {
+        .post(`http://localhost:3000/products`, {
           attributes,
         })
         .then((response) => {
