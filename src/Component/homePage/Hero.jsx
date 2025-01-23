@@ -19,9 +19,9 @@ import Footer from "../footer/Footer";
 import Header3 from "../Headers/Header3";
 
 const mySlider = [
-  { text: "MEN", link: "src/images/banner-15.jpg" },
-  { text: "WOMEN", link: "src/images/banner-25.jpg" },
-  { text: "Home", link: "src/images/home.jpg" },
+  { text: "MEN", link: "public/banner-15.jpg" },
+  { text: "WOMEN", link: "public/banner-25.jpg" },
+  { text: "Home", link: "public/home.jpg" },
 ];
 export default function Hero() {
   const theme = useTheme();
@@ -137,7 +137,7 @@ export default function Hero() {
           <Box sx={{ position: "relative" }}>
             <img
               width={"100%"}
-              src="src/images/banner-17.jpg"
+              src="public/banner-17.jpg"
               alt="offers img"
               loading="lazy"
             />
@@ -201,7 +201,7 @@ export default function Hero() {
           <Box sx={{ position: "relative" }}>
             <img
               width={"100%"}
-              src="src/images/banner-16.jpg"
+              src="public/banner-16.jpg"
               alt="offer img"
               loading="lazy"
             />
