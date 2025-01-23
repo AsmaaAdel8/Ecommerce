@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// const uRl= process.env.REACT_APP_Users_Api;
 export const GetUsers = createAsyncThunk(
   "users/getUsers",
   async ({ Lemail, navigate  }) => {
@@ -31,7 +32,7 @@ export const GetUsers = createAsyncThunk(
 );
 
 export const PostUser = createAsyncThunk("users/postUser", async (formData) => {
-  const response = await axios.post(" http://localhost:3000/users", formData);
+  const response = await axios.post("http://localhost:3000/users", formData);
   return response;
 });
 
