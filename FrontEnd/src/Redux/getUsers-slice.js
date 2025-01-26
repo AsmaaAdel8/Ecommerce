@@ -8,6 +8,7 @@ export const GetUsers = createAsyncThunk(
   async ({ Lemail, navigate  }) => {
     // const uRl= process.env.REACT_APP_URL_API;
     // console.log(process.env);
+    //https://ecommerce-weld-one-59.vercel.app/api/users
     const response = await axios.get(`http://localhost:3000/users`);
     const users = Array.isArray(response.data) ? response.data : [];
     // console.log(Lemail)
