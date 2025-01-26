@@ -9,7 +9,7 @@ export const GetUsers = createAsyncThunk(
     // const uRl= process.env.REACT_APP_URL_API;
     // console.log(process.env);
     //https://ecommerce-weld-one-59.vercel.app/api/users
-    const response = await axios.get(`http://localhost:3000/users`);
+    const response = await axios.get(`https://ecommerce-weld-one-59.vercel.app/api/users`);
     const users = Array.isArray(response.data) ? response.data : [];
     // console.log(Lemail)
     const userData = users.find(
@@ -37,7 +37,7 @@ export const GetUsers = createAsyncThunk(
 
 export const PostUser = createAsyncThunk("users/postUser", async (formData) => {
   // const uRl= process.env.REACT_APP_URL_API;
-  const response = await axios.post(`http://localhost:3000/users`, formData);
+  const response = await axios.post(`https://ecommerce-weld-one-59.vercel.app/api/users`, formData);
   return response;
 });
 

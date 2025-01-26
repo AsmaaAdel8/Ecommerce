@@ -3,8 +3,9 @@ import axios from "axios";
 
 // const uRl= process.env.REACT_APP_URL_API;
 // console.log(uRl);
+//https://ecommerce-weld-one-59.vercel.app/api/products
 export const addProduct = createAsyncThunk("products/addProduct", async () => {
-  const response = await axios.get(`http://localhost:3000/products`);
+  const response = await axios.get(`https://ecommerce-weld-one-59.vercel.app/api/products`);
   // const data = await response;
   // console.log(response.data)
   return response.data;
@@ -12,7 +13,7 @@ export const addProduct = createAsyncThunk("products/addProduct", async () => {
 
 // filter data from api
 export const Filer = createAsyncThunk("filteredData", async (category) => {
-  const response = await axios.get(`http://localhost:3000/products`);
+  const response = await axios.get(`https://ecommerce-weld-one-59.vercel.app/api/products`);
   const products = response.data;
   // console.log(products);
   const filteredProducts = products.filter(

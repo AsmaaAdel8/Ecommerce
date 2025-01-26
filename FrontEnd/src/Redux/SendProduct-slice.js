@@ -7,7 +7,7 @@ export const GetProduct = createAsyncThunk(
   async (attributes) => {
     try {
       const response = await axios
-        .post(`http://localhost:3000/products`, {
+        .post(`https://ecommerce-weld-one-59.vercel.app/api/products`, {
           attributes,
         })
         .then((response) => {
