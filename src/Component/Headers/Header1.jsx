@@ -41,6 +41,7 @@ export default function Header1() {
   return (
     <Container>
       <AppBar
+        id="header1"
         position="fixed"
         sx={{
           height: 43,

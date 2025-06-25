@@ -1,0 +1,10 @@
+@media (max-width:860px) {
+    #footer {
+        display : flex;
+        flex-direction : column;
+    }
+    #footer #stack{
+        border-bottom: solid 1px black;
+        margin-bottom: 10px;
+    }
+}

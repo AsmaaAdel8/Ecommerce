@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import REACT_APP_URL_API from '.env'
 
 // const uRl= process.env.REACT_APP_URL_API;
 // console.log(uRl);
 //https://ecommerce-weld-one-59.vercel.app/api/products
 export const addProduct = createAsyncThunk("products/addProduct", async () => {
-  const response = await axios.get(`https://ecommerce-weld-one-59.vercel.app/api/products`);
+  const response = await axios.get(`${REACT_APP_URL_API}/products`);
   // const data = await response;
   // console.log(response.data)
   return response.data;
@@ -13,7 +14,7 @@ export const addProduct = createAsyncThunk("products/addProduct", async () => {
 
 // filter data from api
 export const Filer = createAsyncThunk("filteredData", async (category) => {
-  const response = await axios.get(`https://ecommerce-weld-one-59.vercel.app/api/products`);
+  const response = await axios.get(`${REACT_APP_URL_API}/products`);
   const products = response.data;
   // console.log(products);
   const filteredProducts = products.filter(

@@ -87,11 +87,11 @@ export default function Header2() {
   };
   const { items } = useSelector((state) => state.users);
   console.log(items);
-  
+
   // disapear login bage and dashbord depind on data of users
   const dispatch = useDispatch();
-  const number  = useSelector((state) => state.SelectedProd.num);
-  console.log(number)
+  const number = useSelector((state) => state.SelectedProd.num);
+  console.log(number);
   // const User = false; // if user have an account or not
   // const Admin = true; // if you user r admin
   const handleMenuItemClick = (event, index) => {
@@ -103,10 +103,10 @@ export default function Header2() {
     setAnchorEl(null);
   };
 
-const logout=()=>{
-  dispatch(LogOut());
-  document.getElementById('shop').style.display="none";
-}
+  const logout = () => {
+    dispatch(LogOut());
+    document.getElementById("shop").style.display = "none";
+  };
 
   const theme = useTheme();
   return (
@@ -133,6 +133,7 @@ const logout=()=>{
           </Link>
         </Stack>
         <Search
+          id="search"
           style={{
             border: "0.5px solid",
             borderRadius: "25px",
@@ -152,6 +153,7 @@ const logout=()=>{
           />
           <div>
             <List
+              id="nav"
               component="nav"
               aria-label="Device settings"
               sx={{
@@ -206,14 +208,14 @@ const logout=()=>{
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
-          {! items && (
-          <Link to={"/Cart"}>
-            <IconButton aria-label="cart" >
-              <StyledBadge badgeContent={number} color="secondary">
-                <ShoppingCartIcon />
-              </StyledBadge>
-            </IconButton>
-          </Link>
+          {!items && (
+            <Link to={"/Cart"}>
+              <IconButton aria-label="cart">
+                <StyledBadge badgeContent={number} color="secondary">
+                  <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
+            </Link>
           )}
           {items === "showAdminDashboard" && (
             <Link
@@ -234,7 +236,7 @@ const logout=()=>{
               <Typography variant="span">Dashpoard</Typography>
             </Link>
           )}
-          { !items ? (
+          {!items ? (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Link
                 to="Profile"
@@ -255,7 +257,7 @@ const logout=()=>{
               </Link>
               <Link
                 to="login"
-                onClick={ logout }
+                onClick={logout}
                 style={{
                   textDecoration: "none",
                   color: theme.palette.text.main,

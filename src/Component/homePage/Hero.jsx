@@ -5,7 +5,7 @@ import {
   Link,
   Stack,
   Typography,
-  useTheme,
+  // useTheme,
 } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -24,7 +24,7 @@ const mySlider = [
   { text: "Home", link: "/home.jpg" },
 ];
 export default function Hero() {
-  const theme = useTheme();
+  // const theme = useTheme();
   // console.log(process.env.REACT_APP_PASSWORD)
   return (
     <Box>
@@ -56,22 +56,14 @@ export default function Hero() {
                   draggable="false"
                   height={450}
                   width={"98%"}
-                  style={{position:"relative"}}
+                  style={{ position: "relative" }}
                 />
                 <Box
                   sx={{
-                    [theme.breakpoints.up("sm")]: {
-                      position: "absolute",
-                      left: "10%",
-                      textAlign: "left",
-                    },
-                    [theme.breakpoints.down("sm")]: {
-                      pt: 4,
-                      pb: 6,
-                    },
+                    position: "absolute",
                   }}
                 >
-                  <Typography sx={{color: "#222",}} variant="h5">
+                  <Typography sx={{ color: "#222" }} variant="h5">
                     LIFESTYLE COLLECTION
                   </Typography>
                   <Typography
@@ -134,7 +126,10 @@ export default function Hero() {
           })}
         </Swiper>
 
-        <Box sx={{ display: { xs: "none", md: "block", minWidth: "26.6%" } }}>
+        <Box
+          sx={{ display: { sm: "none", md: "block", minWidth: "26.6%" } }}
+          id="sideImage"
+        >
           <Box sx={{ position: "relative" }}>
             <img
               width={"100%"}

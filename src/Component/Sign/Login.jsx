@@ -64,7 +64,7 @@ export default function Login() {
   return (
     <Box
       sx={{
-        width: "80%",
+        width: "100%",
         marginLeft: "auto",
         marginRight: "auto",
         mt: "2em",

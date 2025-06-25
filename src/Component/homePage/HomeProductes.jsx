@@ -79,7 +79,7 @@ export default function HomeProductes() {
       {data &&
         data.map((product, index) => {
           return (
-            <Grid item md={4} key={index} sm={6} xl={3}>
+            <Grid item md={5} key={index} sm={9} xl={3}>
               <Card>
                 <CardActionArea>
                   <CardMedia

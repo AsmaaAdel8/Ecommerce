@@ -4,3 +4,18 @@
     box-sizing: border-box;
     /* overflow-x: hidden; */
 }
+@media (max-width:860px) {
+    *{
+        font-size: 10px;
+    }/*hero page*/
+    .parent-slider{
+        width: 100%;
+    }
+    #sideImage{
+        display: none;
+    }
+    #header1{
+        height: 30px;
+    }
+   
+}

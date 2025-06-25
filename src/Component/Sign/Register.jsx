@@ -98,7 +98,7 @@ export default function Register() {
   return (
     <Box
       sx={{
-        width: "80%",
+        width: "105%",
         marginLeft: "auto",
         marginRight: "auto",
         mt: "2em",
