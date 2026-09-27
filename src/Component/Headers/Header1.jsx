@@ -44,10 +44,11 @@ export default function Header1() {
         id="header1"
         position="fixed"
         sx={{
-          height: 43,
+          height: "33px",
           justifyContent: "center",
           alignItems: "space-between",
           padding: "18px",
+          overflowY:"hidden",
           backgroundColor: "rgb(63, 19, 19)",
         }}
       >
@@ -63,6 +64,7 @@ export default function Header1() {
               textAlign: "center",
               marginRight: "8px",
               color: "white",
+              overflowY:"hidden"
             }}
           >
             Hot

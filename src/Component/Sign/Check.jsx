@@ -4,7 +4,7 @@ import axios from "axios";
 export const GetUserData = async () => {
   try {
     const user = await axios
-      .get("http://localhost:1337/api/user-infos")
+      .get("http://localhost:3000/users")
       .then((res) => res.data);
     if (user) {
       return user;
@@ -17,7 +17,7 @@ export const CreateUser = createAsyncThunk(
   "users/createUser",
   async (UserData, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:1337/api/user-infos", {
+      const response = await fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -44,13 +44,13 @@ export const CreateUser = createAsyncThunk(
   }
 );
 export const DeleteUserData = async () => {
-  await axios.delete("http://localhost:1337/api/user-infos");
+  await axios.delete("http://localhost:3000/users");
 };
 export const SetNewProduct = async (formData) => {
   //::products.products/7
   try {
     const res = await axios.post(
-      "http://localhost:1337/api/product?populate=*",
+      "http://localhost:3001?populate=*",
       formData,
       {
         headers: {
@@ -67,7 +67,7 @@ export const SetNewProduct = async (formData) => {
 };
 export const DeleteProduct = async (id) => {
   try {
-    const res = await axios.delete(`http://localhost:3000/products/${id}`);
+    const res = await axios.delete(`http://localhost:3001/products/${id}`);
     if (res.status === 200) {
       console.log("product was deleted successfully");
     }
@@ -78,7 +78,7 @@ export const DeleteProduct = async (id) => {
 };
 export const GetProductData = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/products");
+    const res = await axios.get("http://localhost:3001/products");
     if (res.status === 200) {
       return res.data;
     }

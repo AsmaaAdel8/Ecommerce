@@ -12,3 +12,7 @@ export const store = configureStore({
     SelectedProd: SelectedProduct,
   },
 });
+// http://localhost:3000/users
+// npx json-server --watch db-products.json --port 3001
+// npx json-server db-users.json  
+// to sart json server on port 3000

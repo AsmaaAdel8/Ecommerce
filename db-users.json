@@ -1,0 +1,85 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "Name": "Asmaa",
+      "email": "adelfarouk011136@gmail.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "Admin": true
+    },
+    {
+      "id": "2",
+      "Name": "Hassan",
+      "email": "hassan36@gmail.com",
+      "password": "7412",
+      "confirmPassword": "7412",
+      "Admin": false
+    },
+    {
+      "id": "5526",
+      "Name": "smsm",
+      "email": "adelfarouk011@gmail.com",
+      "password": "852",
+      "confirmPassword": "852",
+      "Admin": true
+    },
+    {
+      "Name": "Soma",
+      "email": "adelfarouk011@gmail.com",
+      "password": "456",
+      "confirmPassword": "456",
+      "Admin": true,
+      "id": "0KfW_lbmTy4"
+    },
+    {
+      "Name": "adel",
+      "email": "hassan36@gmail.com",
+      "password": "852",
+      "confirmPassword": "852",
+      "Admin": false,
+      "id": "9VSOY0zUgDQ"
+    },
+    {
+      "Name": "adel",
+      "email": "adelfarouk011136@gmail.com",
+      "password": "147",
+      "confirmPassword": "147",
+      "Admin": true,
+      "id": "6-u5pGY1XQI"
+    },
+    {
+      "Name": "soma",
+      "email": "soma@del.com",
+      "password": "852",
+      "confirmPassword": "852",
+      "Admin": true,
+      "id": "bzWr3tUQjpM"
+    },
+    {
+      "Name": "hasa",
+      "email": "hassan36@gmail.com",
+      "password": "123",
+      "confirmPassword": "123",
+      "Admin": true,
+      "id": "dsLH9Z9eWjY"
+    },
+    {
+      "Name": "asmaa",
+      "email": "adel",
+      "password": "123",
+      "confirmPassword": "123",
+      "Admin": true,
+      "id": "9O-DkRXYtuQ"
+    },
+    {
+      "Name": "asmaa",
+      "email": "adelfarouk011136@gmail.com",
+      "password": "456",
+      "confirmPassword": "456",
+      "Admin": false,
+      "id": "tiJpD5BYjRw"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

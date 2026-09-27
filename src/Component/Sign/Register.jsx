@@ -42,7 +42,7 @@ export default function Register() {
       alert("Passwords do not match");
       return;
     } else {
-      // localStorage.setItem("user", JSON.stringify(formData));
+      localStorage.setItem("user", JSON.stringify(formData));
       alert("Registration Successfull");
       // console.log(formData);
       await dispatch(PostUser(formData));
@@ -98,10 +98,11 @@ export default function Register() {
   return (
     <Box
       sx={{
-        width: "105%",
+        width: "100%",
         marginLeft: "auto",
         marginRight: "auto",
         mt: "2em",
+        overflowX:"hidden"
       }}
     >
       <Typography variant="h4" mb={1} textAlign={"center"} color={"GrayText"}>

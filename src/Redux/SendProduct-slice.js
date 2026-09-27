@@ -1,13 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-// const uRl= process.env.REACT_APP_URL_API;
+
 // send new product to rest api 
 export const GetProduct = createAsyncThunk(
   "products/GetProduct",
   async (attributes) => {
     try {
       const response = await axios
-        .post(`https://ecommerce-weld-one-59.vercel.app/api/products`, {
+        .post(`http://localhost:3001/`, {
           attributes,
         })
         .then((response) => {
@@ -22,4 +22,3 @@ export const GetProduct = createAsyncThunk(
     }
   }
 );
-// http://localhost:3000/users

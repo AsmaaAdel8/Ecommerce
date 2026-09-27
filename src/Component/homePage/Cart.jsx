@@ -1,9 +1,9 @@
 import { Box, Button, Container, Drawer, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { clearCart, removeItem } from "../Redux/Selected-Products";
+import { clearCart, removeItem } from "../../Redux/Selected-Products";
 import { useState } from "react";
 import { Delete, Star } from "@mui/icons-material";
-import Payment from "./Payment";
+import Payment from "../Payment";
 
 export default function Cart() {
   const items = useSelector((state) => state.SelectedProd.items);
@@ -13,8 +13,8 @@ export default function Cart() {
   const ClearCard = () => {
     dispatch(clearCart());
   };
-  const data = Array.isArray(items) ? items : [];
-  console.log(data);
+  // const data = Array.isArray(items) ? items : [];
+  // console.log(data);
 
   const [open, setOpen] = useState(false);
 
@@ -53,17 +53,19 @@ export default function Cart() {
                 margin: "auto",
                 mb: 2,
                 mt: 4,
-                bgcolor: "grey",
+                bgcolor: "gray",
+                borderRadius:"2%"
               }}
             >
               <img
                 loading="lazy"
                 alt="selected product to your card"
                 src={item.attributes.image1}
-                width={"10%"}
-                height={"10%"}
+                width={"20%"}
+                height={"20%"}
+                style={{padding:"5px"}}
               />
-              <Box ml={3} flexGrow={1}>
+              <Box ml={3} flexGrow={1} sx={{padding:"5px",color:"white",fontSize:"large"}}>
                 <Typography variant="h6">
                   {item.attributes.Productitle}
                 </Typography>
@@ -72,11 +74,10 @@ export default function Cart() {
                   {item.attributes.ProductPrice} $
                 </Typography>
                 <Typography variant="h6">
-                  {" "}
                   {item.attributes.Rating} <Star />
                 </Typography>
               </Box>
-              <Button onClick={() => handleRemoveItem(index)}>
+              <Button onClick={() => handleRemoveItem(index)} sx={{color:"black"}}>
                 <Delete />
               </Button>
               <Box
@@ -85,17 +86,19 @@ export default function Cart() {
                   flexDirection: "row",
                   alignItems: "center",
                   bgcolor: "silver",
+                  padding:"10px",
+                  marginRight:"5px"
                 }}
               >
                 <Button
-                  sx={{ height: "15px", color: "gray" }}
+                  sx={{ height: "15px", color: "black",fontSize:"20px" }}
                   onClick={() => handleQuantityChange(index, 1)}
                 >
                   +
                 </Button>
-                <Typography> {quantities[index]} </Typography>
+                <Typography sx={{fontSize:"20px"}}> {quantities[index]} </Typography>
                 <Button
-                  sx={{ height: "15px", color: "gray" }}
+                  sx={{ height: "15px", color: "black",fontSize:"20px" }}
                   onClick={() => handleQuantityChange(index, -1)}
                 >
                   -

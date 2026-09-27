@@ -6,7 +6,7 @@ import Dashpoard from "./Component/Sign/Dashpoard";
 import Hero from "./Component/homePage/Hero";
 import './index.css'
 import Profile from "./Component/Profile";
-import Cart from "./Component/Cart";
+import Cart from "./Component/homePage/Cart";
 export default function App() {
   return (
     <Routes>

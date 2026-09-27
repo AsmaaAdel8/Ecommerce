@@ -39,15 +39,14 @@ export default function HomeProductes() {
   const [open, setOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const { items, status, error } = useSelector((state) => state.addProduct);
-  const { users } = useSelector((state) => state.users);
+  const userData = useSelector((state) => state.users.currentUser);
   const [data] = items;
   // console.log(data);
   useEffect(() => {
     dispatch(addProduct());
   }, [dispatch]);
-
   // the varible which returns the data from the api
   const handleClickOpen = (product) => {
     setOpen(true);
@@ -57,7 +56,16 @@ export default function HomeProductes() {
     setOpen(false);
     setSelectedProduct(null);
   };
-
+  // const UserData=JSON.parse(localStorage.getItem("user"));
+  const handleBuyNow = () => {
+    if (userData) {
+      dispatch(Selected(selectedProduct));
+    } else {
+      alert("You shoud login To your account first...");
+      navigate("/login");
+    }
+    handleClose();
+  };
   return (
     <Grid
       container
@@ -79,12 +87,12 @@ export default function HomeProductes() {
       {data &&
         data.map((product, index) => {
           return (
-            <Grid item md={5} key={index} sm={9} xl={3}>
-              <Card>
+            <Grid item md={4} key={index} sm={5} xl={3}>
+              <Card sx={{ height: "100%" }}>
                 <CardActionArea>
                   <CardMedia
                     component="img"
-                    sx={{ height: "250px" }}
+                    sx={{ height: "50%" }}
                     image={product.attributes.image1}
                     alt="product image"
                     draggable="false"
@@ -191,13 +199,7 @@ export default function HomeProductes() {
                 <DialogActions>
                   <Button
                     onClick={() => {
-                      handleClose();
-                      if (!users) {
-                        alert("You shoud login To your account first...");
-                        navigate("/login")
-                      } else {
-                        dispatch(Selected(selectedProduct));
-                      }
+                      handleBuyNow();
                     }}
                     startIcon={<AddShoppingCartIcon />}
                   >

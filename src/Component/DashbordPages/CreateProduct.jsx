@@ -29,18 +29,11 @@ export default function CreateProduct() {
     image1: null,
   });
   const handleSubmit = () => {
-    if (
-      !productData.Productitle ||
-      !productData.Description ||
-      !productData.ProductPrice ||
-      !productData.Catigory ||
-      !productData.Rating ||
-      !productData.image1
-    ) {
-      alert("Please fill in all the fields");
+    if ( productData ) {
+      dispatch(GetProduct(productData));
       return;
     }
-    dispatch(GetProduct(productData));
+    alert("Please fill in all the fields");
   };
   const options = ["WEMEN", "MEN", "CHILDREN", "ELECTRONES", "HOME"];
   const handleImageChange = (e) => {

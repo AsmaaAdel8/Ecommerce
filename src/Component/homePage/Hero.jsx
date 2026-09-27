@@ -60,7 +60,7 @@ export default function Hero() {
                 />
                 <Box
                   sx={{
-                    position: "absolute",
+                    position: "absolute", top:"15%",left:"15%"
                   }}
                 >
                   <Typography sx={{ color: "#222" }} variant="h5">

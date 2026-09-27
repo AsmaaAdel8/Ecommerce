@@ -41,6 +41,8 @@ export default function Login() {
       return;
     } else {
       await dispatch(GetUsers({ Lemail , navigate }));
+      navigate("/")
+      // console.log("find data");
     }
     // Clear the inputs
     setPassword("");

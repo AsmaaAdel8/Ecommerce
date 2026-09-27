@@ -10,7 +10,7 @@ import { DeleteProduct, GetProductData } from "../Sign/Check";
 import { useEffect, useState } from "react";
 
 export default function Products() {
-    const UrlImg="http://localhost:1337";
+    // const UrlImg="http://localhost:1337";
     const theme = useTheme();
     const [products, setProducts] = useState([]);
     const handleDelete=(id)=>{
@@ -21,9 +21,9 @@ export default function Products() {
       const fetchData = async () => {
         try {
           const data = await GetProductData();
-          console.log("Fetched data:", data.data); // Log the entire response
-          if (data.data) {
-            setProducts(data.data); // Assuming the response structure is { data: [...] }
+          console.log("Fetched data:", data); // Log the entire response
+          if (data) {
+            setProducts(data); // Assuming the response structure is { data: [...] }
           } else {
             console.error("Unexpected response structure:", data);
           }
@@ -67,7 +67,7 @@ export default function Products() {
               >
                 <Avatar
                   alt="product image"
-                  src={`${UrlImg}${product.attributes.ProductImage.data[0].attributes.url}`}
+                  src={`${product.attributes.image1}`}
                   sx={{ width: 50, height: 50 }}
                 />
                 {product.attributes.Productitle}

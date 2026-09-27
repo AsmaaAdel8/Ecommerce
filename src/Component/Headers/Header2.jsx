@@ -30,7 +30,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LogOut } from "../../Redux/getUsers-slice";
-// import { Shopping } from "../../Redux/Selected-Products";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -85,13 +84,12 @@ export default function Header2() {
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const { items } = useSelector((state) => state.users);
-  console.log(items);
-
+  const userData = useSelector((state) => state.users.currentUser);
+  console.log(userData);
   // disapear login bage and dashbord depind on data of users
   const dispatch = useDispatch();
   const number = useSelector((state) => state.SelectedProd.num);
-  console.log(number);
+  // console.log(number);
   // const User = false; // if user have an account or not
   // const Admin = true; // if you user r admin
   const handleMenuItemClick = (event, index) => {
@@ -208,16 +206,8 @@ export default function Header2() {
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
-          {!items && (
-            <Link to={"/Cart"}>
-              <IconButton aria-label="cart">
-                <StyledBadge badgeContent={number} color="secondary">
-                  <ShoppingCartIcon />
-                </StyledBadge>
-              </IconButton>
-            </Link>
-          )}
-          {items === "showAdminDashboard" && (
+          {userData &&
+          (userData.data.Admin === true || userData.data.Admin === "true") ? (
             <Link
               to="Dashpoard"
               style={{
@@ -235,8 +225,16 @@ export default function Header2() {
               <Lock fontSize="5px" />
               <Typography variant="span">Dashpoard</Typography>
             </Link>
+          ) : (
+            <Link to={"/Cart"}>
+              <IconButton aria-label="cart">
+                <StyledBadge badgeContent={number} color="secondary">
+                  <ShoppingCartIcon />
+                </StyledBadge>
+              </IconButton>
+            </Link>
           )}
-          {!items ? (
+          {userData? (
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Link
                 to="Profile"
